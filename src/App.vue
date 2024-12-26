@@ -1,26 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <template v-if="!isAuthenticated">
+        <router-link to="/login">Login</router-link> |
+        <router-link to="/register">Register</router-link>
+      </template>
+      <template v-else>
+        <router-link to="/dashboard">Dashboard</router-link> |
+        <a href="#" @click.prevent="handleLogout">Logout</a>
+      </template>
+    </nav>
+  </header>
+
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+
+    const isAuthenticated = computed(() => store.getters['auth/isAuthenticated'])
+
+    const handleLogout = async () => {
+      await store.dispatch('auth/logout')
+      router.push('/login')
+    }
+
+    return {
+      isAuthenticated,
+      handleLogout
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
