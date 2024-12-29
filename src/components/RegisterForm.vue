@@ -3,7 +3,7 @@
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <div v-if="error" class="mb-4 p-4 rounded-md bg-red-50 border border-red-200">
                 <p class="text-sm text-red-600">{{ error }}</p>
-            </div>
+            </div>           
             <form class="space-y-6" @submit.prevent="handleSubmit">
                 <div>
                     <label for="email" class="block text-sm font-medium text-text">Email address</label>
@@ -36,7 +36,7 @@
                         type="submit"
                         class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                     >
-                        Sign in
+                        Register
                     </button>
                 </div>
             </form>
@@ -45,48 +45,47 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, ref } from 'vue'
-    import { useStore } from 'vuex'
-    import { useRouter } from 'vue-router'
-    import type { LoginCredentials } from '@/types/auth'
+import { defineComponent, ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import type { RegisterCredentials } from '@/types/auth'
 
-    export default defineComponent({
-        name: 'LoginForm',
-        
-        setup() {
-            const store = useStore()
-            const router = useRouter()
-            
-            const email = ref('')
-            const password = ref('')
-            const error = ref('')
-            
-            const handleSubmit = async (): Promise<void> => {
-                try {
-                    error.value = ''
-                    const credentials: LoginCredentials = {
-                        email: email.value,
-                        password: password.value
-                }
+export default defineComponent({
+    name: 'RegisterForm',
+    
+    setup() {
+    const store = useStore()
+    const router = useRouter()
+    
+    const email = ref('')
+    const password = ref('')
+    const error = ref('')
 
-                await store.dispatch('auth/login', credentials)
-                router.push('/dashboard')
-                } catch (e:any) {
-                    if (e.response && e.response.data && e.response.data.error) {
-                        error.value = e.response.data.error
-                    } else {
-                        error.value = 'Login failed. Please check your credentials and try again.'
-                    }
-                    console.error('Login failed:', e)
-                }
-            }
-        
-            return {
-                email,
-                password,
-                error,
-                handleSubmit
-            }
+    const handleSubmit = async (): Promise<void> => {
+        try {
+        const credentials: RegisterCredentials = {
+            email: email.value,
+            password: password.value
         }
-    })
+        
+        await store.dispatch('auth/register', credentials)
+        router.push('/dashboard')
+            } catch (e: any) {
+                if (e.response && e.response.data && e.response.data.error) {
+                    error.value = e.response.data.error
+                } else {
+                    error.value = 'Registration failed. Please try again.'
+                }
+                console.error('Registration failed:', e)
+            }
+    }
+    
+    return {
+        email,
+        password,
+        error,
+        handleSubmit
+    }
+    }
+})
 </script>

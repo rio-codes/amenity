@@ -1,30 +1,30 @@
 <template>
-    <div class="login">
+    <div class="register">
         <div class="min-h-[calc(100vh-16rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
                 <h2 class="mt-6 text-center text-3xl font-display font-bold tracking-tight text-text">
-                    Sign in to your account
+                    Create your account
                 </h2>
                 <p class="mt-2 text-center text-sm text-text-light">
-                    Don't have an account?
-                    <router-link to="/register" class="font-medium text-primary hover:text-accent">
-                        Register
+                    Already have an account?
+                    <router-link to="/login" class="font-medium text-primary hover:text-accent">
+                        Sign in
                     </router-link>
                 </p>
             </div>
-            <LoginForm />
+            <RegisterForm />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue'
-    import LoginForm from '../components/LoginForm.vue'
+    import RegisterForm from '@/components/RegisterForm.vue'
 
     export default defineComponent({
-        name: 'LoginView',
+        name: 'RegisterView',
         components: {
-            LoginForm
+        RegisterForm
         }
     })
 </script>
