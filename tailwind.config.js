@@ -8,9 +8,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#E07A5F', // terracotta
-          hover: '#CD6B52', // darker terracotta
-          light: '#F2C4BA'  // light terracotta
+          // More desaturated terracotta with coral undertone
+          DEFAULT: '#C69C93', // Darker than #E4B5AA but still soft
+          hover: '#B68D84',   // Darker version for hover
+          light: '#E4B5AA'    // Using previous color as light version
         },
         background: {
           DEFAULT: '#FFF9F5', // soft cream

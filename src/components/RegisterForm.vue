@@ -74,7 +74,7 @@ export default defineComponent({
                 if (e.response && e.response.data && e.response.data.error) {
                     error.value = e.response.data.error
                 } else {
-                    error.value = 'Registration failed. Please try again.'
+                    error.value = 'Registration failed: ' + e
                 }
                 console.error('Registration failed:', e)
             }
