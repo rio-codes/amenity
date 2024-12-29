@@ -13,12 +13,12 @@
         "skipLibCheck": true,
         "baseUrl": ".",
         "paths": {
-        "@/*": ["./frontend/*"]
+        "@/*": ["./app/frontend/*"]
         },
-        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+        "lib": ["esnext", "dom"],
         "types": ["vite/client", "node"]
     },
-    "include": ["env.d.ts", "frontend/**/*", "frontend/**/*.vue"],
+    "include": ["app/frontend/**/*.ts", "app/frontend/**/*.d.ts", "app/frontend/**/*.tsx", "app/frontend/**/*.vue"],
     "exclude": ["node_modules"],
     "references": [
         {

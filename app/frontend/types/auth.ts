@@ -1,12 +1,12 @@
 // include authentication state, user, login credentials, register credentials, and auth response
+import axios from '../axios'
+import { ActionContext } from 'vuex'
+import { User, RegisterCredentials } from './types'
 
-export interface LoginCredentials {
-    email: string;
-    password: string;
-}
-
-export interface RegisterCredentials extends LoginCredentials {
-    password_confirmation?: string;
+export interface AuthState {
+    token: string | null;
+    user: User | null;
+    isAuthenticated: boolean;
 }
 export interface AuthResponse {
     user: User;

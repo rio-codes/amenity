@@ -1,12 +1,7 @@
-import axios from 'axios'
+import axios from './axios'
 import { ActionContext } from 'vuex'
+import { User, RegisterCredentials } from '../../types/types'
 
-// Define the User type
-export interface User {
-    id: number
-    name: string
-    email: string
-}
 
 // Define the AuthState type
 export interface AuthState {
@@ -33,9 +28,9 @@ type AuthContext = ActionContext<AuthState, any>
 
 // Define the actions
 const actions = {
-    async register({ commit }: AuthContext, credentials: { email: string, password: string, name: string }): Promise<void> {
+    async register({ commit }: AuthContext, credentials: RegisterCredentials): Promise<void> {
         try {
-            const response = await axios.post<{ token: string, user: User }>('users', { user: credentials })
+            const response = await axios.post<{ token: string, user: User }>('/api/v1/users', { user: credentials })
             const { token, user } = response.data
             
             localStorage.setItem('token', token)
@@ -50,14 +45,19 @@ const actions = {
     },
 
     async login({ commit, dispatch }: AuthContext, credentials: { email: string, password: string }): Promise<void> {
-        const response = await axios.post<{ token: string }>('auth/login', credentials)
-        const token = response.data.token
+        try {
+            const response = await axios.post<{ token: string }>('/auth/login', credentials)
+            const token = response.data.token
 
-        localStorage.setItem('token', token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-        commit('SET_TOKEN', token)
-        await dispatch('fetchUser')
+            commit('SET_TOKEN', token)
+            await dispatch('fetchUser')
+        } catch (error) {
+            console.error('Login failed:', error)
+            throw error
+        }
     },
 
     async logout({ commit }: AuthContext): Promise<void> {
@@ -71,7 +71,7 @@ const actions = {
     async checkAuth({ commit, state }: AuthContext): Promise<void> {
         if (!state.token) return
         try {
-            const response = await axios.get<User>('auth/auto_login')
+            const response = await axios.get<User>('/auth/auto_login')
             commit('SET_USER', response.data)
         } catch (error) {
             commit('SET_TOKEN', null)
@@ -82,7 +82,7 @@ const actions = {
 
     async fetchUser({ commit }: AuthContext): Promise<User> {
         try {
-            const response = await axios.get<User>('auth/user')
+            const response = await axios.get<User>('/auth/user')
             commit('SET_USER', response.data)
             return response.data
         } catch (error) {
@@ -92,18 +92,16 @@ const actions = {
     }
 }
 
-// Define the mutations
 const mutations = {
-    SET_TOKEN(state: AuthState, token: string | null): void {
+    SET_TOKEN(state: AuthState, token: string | null) {
         state.token = token
     },
-    SET_USER(state: AuthState, user: User | null): void {
+    SET_USER(state: AuthState, user: User | null) {
         state.user = user
         state.isAuthenticated = !!user
     }
 }
 
-// Export the module
 export default {
     namespaced: true,
     state,

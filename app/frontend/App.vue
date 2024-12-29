@@ -5,7 +5,7 @@
         <div class="flex justify-between h-16">
           <div class="flex">
             <div class="flex-shrink-0 flex items-center">
-              <router-link to="/" class="text-3xl font-display font-bold text-primary">movely</router-link>
+              <router-link to="/" class="text-3xl font-display font-bold text-primary">envelop</router-link>
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
               <router-link 

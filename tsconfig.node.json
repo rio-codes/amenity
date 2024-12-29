@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+            "composite": true,
+            "module": "commonjs",
+            "esModuleInterop": true,
+            "lib": ["esnext"],
+            "baseUrl": ".",
+            "paths": {
+            "@/*": ["./app/frontend/*"]
+        }
+    },
+    "include": ["vite.config.ts", "app/frontend/**/*.ts", "app/frontend/**/*.d.ts", "app/frontend/**/*.tsx", "app/frontend/**/*.vue"],
+    "exclude": ["node_modules"]
+}

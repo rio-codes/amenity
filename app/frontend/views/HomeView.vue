@@ -10,7 +10,7 @@
                     <span class="block">Find your <span class="text-primary">cozy.</span></span>
                 </h1>
                 <p class="mt-3 text-base text-text-light sm:mt-5 sm:text-lg">
-                    With <span class="text-primary">movely</span>, track and compare properties, manage your apartment hunting journey, and make informed decisions to find your new favorite place to be.
+                    With <span class="text-primary">envelop</span>, track and compare properties, manage your apartment hunting journey, and make informed decisions to find your new favorite place to be.
                 </p>
                 <div class="mt-5 sm:mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <div class="rounded-md shadow w-full sm:w-auto">
@@ -50,3 +50,9 @@
         </div>
     </div>
 </template>
+
+<script lang="ts">
+export default {
+    name: 'HomeView'
+}
+</script>
