@@ -1,0 +1,42 @@
+{
+  "assets/main.css": {
+    "file": "assets/main-CSmoqpSd.css",
+    "src": "assets/main.css",
+    "isEntry": true
+  },
+  "assets/woman_reading.jpg": {
+    "file": "assets/woman_reading-BQRYEaBO.jpg",
+    "src": "assets/woman_reading.jpg"
+  },
+  "entrypoints/application.js": {
+    "file": "assets/application-DAiVmxmR.js",
+    "name": "entrypoints/application.js",
+    "src": "entrypoints/application.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "views/DashboardView.vue"
+    ],
+    "css": [
+      "assets/main-CSmoqpSd.css"
+    ],
+    "assets": [
+      "assets/woman_reading-BQRYEaBO.jpg"
+    ]
+  },
+  "logo.png": {
+    "file": "assets/logo-CPmPqqKk.png",
+    "src": "logo.png"
+  },
+  "views/DashboardView.vue": {
+    "file": "assets/DashboardView-BdAiphz-.js",
+    "name": "DashboardView",
+    "src": "views/DashboardView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "entrypoints/application.js"
+    ],
+    "css": [
+      "assets/main-CSmoqpSd.css"
+    ]
+  }
+}

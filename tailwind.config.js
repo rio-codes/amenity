@@ -1,36 +1,31 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}"
-  ],
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          // More desaturated terracotta with coral undertone
-          DEFAULT: '#C69C93', // Darker than #E4B5AA but still soft
-          hover: '#B68D84',   // Darker version for hover
-          light: '#E4B5AA'    // Using previous color as light version
-        },
-        background: {
-          DEFAULT: '#FFF9F5', // soft cream
-          alt: '#F7ECE6'     // slightly darker cream
-        },
-        accent: {
-          DEFAULT: '#A44A3F', // deep rust
-          light: '#C86B60'    // lighter rust
-        },
-        text: {
-          DEFAULT: '#2C1810', // warm brown
-          light: '#5C4D47'    // lighter brown
+module.exports = {
+    content: [
+        "./app/frontend/**/*.{vue,js,ts,jsx,tsx}",
+        "./app/views/**/*.{erb,html}",
+        ],
+        theme: {
+        extend: {
+            colors: {
+            primary: {
+                DEFAULT: '#C69C93',
+                hover: '#B68D84',
+                light: '#E4B5AA'
+            },
+            background: {
+                DEFAULT: '#FFF9F5',
+                alt: '#F7ECE6'
+            },
+            text: {
+                DEFAULT: '#2C1810',
+                light: '#5C4D47'
+            }
+            },
+            fontFamily: {
+            display: ['Cormorant Garamond', 'serif'],
+            body: ['Open Sans', 'sans-serif']
+            }
         }
-      },
-      fontFamily: {
-        display: ['Cormorant Garamond', 'serif'],
-        body: ['Open Sans', 'sans-serif']
-      }
-    }
-  },
-  plugins: [],
+        },
+    plugins: [],
 }

@@ -1,3 +1,10 @@
+*.gem
+*.rbc
+/coverage/
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
 # Frontend .gitignore
 .DS_Store
 node_modules
@@ -21,3 +28,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+## Environment normalization:
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
