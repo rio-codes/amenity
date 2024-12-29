@@ -48,7 +48,7 @@
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import type { RegisterCredentials } from '@/types/auth'
+import type { RegisterCredentials } from '../types/auth'
 
 export default defineComponent({
     name: 'RegisterForm',

@@ -4,6 +4,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+config/database.yml
 
 # Frontend .gitignore
 .DS_Store
