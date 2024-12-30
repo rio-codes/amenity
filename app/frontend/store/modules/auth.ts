@@ -1,26 +1,22 @@
-import axios from './axios'
+import axios from '../../plugins/axios'
 import { ActionContext } from 'vuex'
 import { User, RegisterCredentials } from '../../types/types'
-
 
 // Define the AuthState type
 export interface AuthState {
     token: string | null
-    user: User | null
     isAuthenticated: boolean
 }
 
 // Define the initial state
 const state: AuthState = {
     token: localStorage.getItem('token'),
-    user: null,
-    isAuthenticated: false
+    isAuthenticated: !!localStorage.getItem('token')
 }
 
 // Define the getters
 const getters = {
-    isAuthenticated: (state: AuthState) => state.isAuthenticated,
-    user: (state: AuthState) => state.user
+    isAuthenticated: (state: AuthState) => state.isAuthenticated
 }
 
 // Define the AuthContext type
@@ -28,18 +24,21 @@ type AuthContext = ActionContext<AuthState, any>
 
 // Define the actions
 const actions = {
-    async register({ commit }: AuthContext, credentials: RegisterCredentials): Promise<void> {
+    async register({ commit, dispatch }: AuthContext, credentials: RegisterCredentials): Promise<void> {
         try {
-            const response = await axios.post<{ token: string, user: User }>('/api/v1/users', { user: credentials })
-            const { token, user } = response.data
-            
+            const response = await axios.post<{ token: string }>('/auth/register', credentials)
+            const token = response.data.token
+
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            
+
             commit('SET_TOKEN', token)
-            commit('SET_USER', user)
+            await dispatch('user/fetchUser', null, { root: true }) // Dispatch fetchUser from user module
         } catch (error) {
             console.error('Registration failed:', error)
+            if (error.response) {
+                console.error('Error response:', error.response.data)
+            }
             throw error
         }
     },
@@ -53,9 +52,12 @@ const actions = {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
             commit('SET_TOKEN', token)
-            await dispatch('fetchUser')
+            await dispatch('user/fetchUser', null, { root: true }) // Dispatch fetchUser from user module
         } catch (error) {
             console.error('Login failed:', error)
+            if (error.response) {
+                console.error('Error response:', error.response.data)
+            }
             throw error
         }
     },
@@ -65,40 +67,32 @@ const actions = {
         delete axios.defaults.headers.common['Authorization']
 
         commit('SET_TOKEN', null)
-        commit('SET_USER', null)
+        commit('user/SET_USER', null, { root: true }) // Commit SET_USER mutation from user module
     },
 
-    async checkAuth({ commit, state }: AuthContext): Promise<void> {
+    async checkAuth({ commit, state, dispatch }: AuthContext): Promise<void> {
         if (!state.token) return
         try {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}` // Ensure token is set in headers
             const response = await axios.get<User>('/auth/auto_login')
-            commit('SET_USER', response.data)
+            commit('user/SET_USER', response.data, { root: true }) // Commit SET_USER mutation from user module
         } catch (error) {
             commit('SET_TOKEN', null)
-            commit('SET_USER', null)
+            commit('user/SET_USER', null, { root: true }) // Commit SET_USER mutation from user module
             localStorage.removeItem('token')
-        }
-    },
-
-    async fetchUser({ commit }: AuthContext): Promise<User> {
-        try {
-            const response = await axios.get<User>('/auth/user')
-            commit('SET_USER', response.data)
-            return response.data
-        } catch (error) {
-            console.error('Failed to fetch user:', error)
-            throw error
+            console.error('Auto login failed:', error)
+            if (error.response) {
+                console.error('Error response:', error.response.data)
+            }
         }
     }
 }
 
+// Define the mutations
 const mutations = {
     SET_TOKEN(state: AuthState, token: string | null) {
         state.token = token
-    },
-    SET_USER(state: AuthState, user: User | null) {
-        state.user = user
-        state.isAuthenticated = !!user
+        state.isAuthenticated = !!token
     }
 }
 

@@ -48,7 +48,7 @@
     import { defineComponent, ref } from 'vue'
     import { useStore } from 'vuex'
     import { useRouter } from 'vue-router'
-    import type { LoginCredentials } from '../types/auth'
+    import type { LoginCredentials } from '../types/types'
 
     export default defineComponent({
         name: 'LoginForm',

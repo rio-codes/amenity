@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      post '/auth/login', to: 'auth#login'
-      post '/auth/register', to: 'auth#register'
-      get '/auth/auto_login', to: 'auth#auto_login'
-      resources :users, only: [:create]
+      resources :users, only: [:create, :show, :update, :destroy] do
+        member do
+          put 'move_in_date', to: 'users#update_move_in_date'
+        end
+      end
+      post 'auth/register', to: 'auth#register' # Add this line to handle user registration
+      post 'auth/login', to: 'auth#login'
+      get 'auth/auto_login', to: 'auth#auto_login'
+      get 'auth/user', to: 'auth#user'
+      resources :apartments, only: [:create, :show, :update, :destroy]
     end
   end
 

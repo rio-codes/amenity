@@ -30,6 +30,5 @@ module Envelop
     config.api_only = true
 
     config.hosts << /.*\.ngrok\.app/
-    
   end
 end

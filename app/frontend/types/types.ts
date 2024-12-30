@@ -18,3 +18,10 @@ export interface RegisterCredentials {
 export interface RegisterCredentials extends LoginCredentials {
     password_confirmation?: string;
 }
+
+export interface Apartment {
+    id: number
+    name: string
+    description: string
+    userId: number
+}
