@@ -8,11 +8,13 @@ module Api
             # POST /api/v1/auth/register
             def register
                 user = User.new(user_params)
-                if user.save
-                    token = JsonWebToken.encode(user_id: user.id)
-                    render json: { token: token }, status: :created
+                if User.exists?(email: user_params[:email])
+                    render json: { error: 'This email address has already been registered, please login or select a different address.' }, status: :unprocessable_entity
+                elsif user.save
+                    token = encode_token(user_id: user.id)
+                    render json: { token: token, user: user }, status: :created
                 else
-                    render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+                    render json: { error: user.errors.full_messages }, status: :unprocessable_entity
                 end
             end
 

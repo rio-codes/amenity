@@ -1,5 +1,3 @@
-Rails.application.config.hosts << /.*\.ngrok\.app/
-
 # Load the Rails application.
 require_relative "application"
 

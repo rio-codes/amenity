@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "build:client": "vite build",
+    "build": "npm run build:client",
+    "start": "npm run dev && bundle exec rackup --port $PORT"
   },
   "dependencies": {
     "axios": "^0.21.1",

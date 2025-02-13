@@ -1,4 +1,4 @@
-class CreateApartments < ActiveRecord::Migration[8.0]
+class CreateApartments < ActiveRecord::Migration[7.1]
   def change
     create_table :apartments do |t|
       t.references :user, null: false, foreign_key: true

@@ -1,4 +1,4 @@
-class CreatePropertyRatings < ActiveRecord::Migration[8.0]
+class CreatePropertyRatings < ActiveRecord::Migration[7.1]
   def change
     create_table :property_ratings do |t|
       t.references :property, foreign_key: true

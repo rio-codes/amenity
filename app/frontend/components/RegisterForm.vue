@@ -39,7 +39,6 @@
                         Register
                     </button>
                 </div>
-                <div v-if="error">{{ error }}</div>
             </form>
         </div>
     </div>
@@ -75,7 +74,7 @@ export default defineComponent({
                 if (e.response && e.response.data && e.response.data.error) {
                     error.value = e.response.data.error
                 } else {
-                    error.value = 'Registration failed: ' + e
+                    error.value = 'Registration failed.'
                 }
                 console.error('Registration failed:', e)
             }

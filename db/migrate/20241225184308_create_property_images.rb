@@ -1,4 +1,4 @@
-class CreatePropertyImages < ActiveRecord::Migration[8.0]
+class CreatePropertyImages < ActiveRecord::Migration[7.1]
   def change
     create_table :property_images do |t|
       t.references :property, foreign_key: true

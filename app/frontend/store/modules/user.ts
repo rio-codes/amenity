@@ -2,7 +2,7 @@ import axios from '../../plugins/axios'
 import { ActionContext } from 'vuex'
 import { User } from '../../types/types'
 
-// Define the UserState type
+// Define the UserState type, include user id
 export interface UserState {
     user: User | null
 }
