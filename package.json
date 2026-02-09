@@ -9,7 +9,7 @@
     "start": "npm run dev && bundle exec rackup --port $PORT"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.13.5",
     "cors": "^2.8.5",
     "vue": "^3.2.0",
     "vue-router": "^4.0.0",
